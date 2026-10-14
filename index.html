@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🪴 [1학급 1화분 키우기] 활동 결과 보고서</title>
+  <!-- Pretendard & Gowun Dodum Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Pretendard:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- html2canvas for saving report as image -->
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- 상단 고정 액션 바 (캡처 시 제외) -->
+  <header class="top-toolbar no-capture">
+    <div class="toolbar-inner">
+      <div class="toolbar-brand">
+        <span class="brand-icon">🪴</span>
+        <span class="brand-title">1학급 1화분 키우기 보고서</span>
+        <span id="autosave-status" class="autosave-badge">자동 저장됨</span>
+      </div>
+      <div class="toolbar-actions">
+        <button type="button" id="btn-reset" class="btn btn-outline" title="작성 내용 초기화">
+          🔄 초기화
+        </button>
+        <button type="button" id="btn-save-image" class="btn btn-secondary">
+          📸 이미지 저장
+        </button>
+        <button type="button" id="btn-share-image" class="btn btn-accent">
+          📤 이미지 저장 후 공유
+        </button>
+        <button type="button" id="btn-submit" class="btn btn-primary">
+          ✅ 보고서 제출(완성)
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-container">
+    <!-- 안내 배너 (캡처 시 제외) -->
+    <div class="guide-banner no-capture">
+      <p>
+        💡 <strong>작성 안내:</strong> 모든 항목을 정성껏 작성한 뒤 하단 또는 상단의
+        <strong>[이미지 저장 후 공유]</strong> 또는 <strong>[보고서 제출(완성)]</strong> 버튼을 눌러
+        보고서 이미지를 저장하고 선생님께 제출(공유)해 주세요.
+      </p>
+    </div>
+
+    <!-- 실제 이미지로 캡처될 보고서 영역 -->
+    <article id="report-paper" class="report-paper">
+      <!-- 보고서 헤더 -->
+      <div class="report-header">
+        <div class="header-deco">🌱 Green School Project</div>
+        <h1>🪴 [1학급 1화분 키우기] 활동 결과 보고서</h1>
+        <p class="report-subtitle">우리 반 반려식물과 함께 자라나는 초록빛 교실 이야기</p>
+      </div>
+
+      <!-- 1. 기본 정보 -->
+      <section class="report-section">
+        <h2 class="section-title">
+          <span class="section-num">1</span>
+          기본 정보
+        </h2>
+
+        <div class="info-grid">
+          <!-- 학번 / 이름 -->
+          <div class="info-row full-width">
+            <label class="info-label">학번 / 이름</label>
+            <div class="info-inputs student-id-group">
+              <div class="inline-field">
+                <input type="number" id="student-grade" min="1" max="6" placeholder="0" class="input-short" />
+                <span>학년</span>
+              </div>
+              <div class="inline-field">
+                <input type="number" id="student-class" min="1" max="30" placeholder="0" class="input-short" />
+                <span>반</span>
+              </div>
+              <div class="inline-field">
+                <input type="number" id="student-number" min="1" max="50" placeholder="0" class="input-short" />
+                <span>번</span>
+              </div>
+              <span class="divider">/</span>
+              <div class="inline-field name-field">
+                <span class="sub-label">이름:</span>
+                <input type="text" id="student-name" placeholder="이름을 입력하세요" class="input-medium" />
+              </div>
+            </div>
+          </div>
+
+          <!-- 식물 종류(품종) -->
+          <div class="info-row">
+            <label class="info-label" for="plant-species">식물 종류(품종)</label>
+            <div class="info-inputs">
+              <input type="text" id="plant-species" placeholder="예: 몬스테라, 스킨답서스, 방울토마토" class="input-full" />
+            </div>
+          </div>
+
+          <!-- 우리 반 화분 애칭 -->
+          <div class="info-row">
+            <label class="info-label" for="plant-nickname">우리 반 화분 애칭</label>
+            <div class="info-inputs">
+              <input type="text" id="plant-nickname" placeholder="예: 초록이, 쑥쑥이" class="input-full" />
+            </div>
+          </div>
+
+          <!-- 활동 기간 -->
+          <div class="info-row full-width">
+            <label class="info-label">활동 기간</label>
+            <div class="info-inputs period-group">
+              <div class="date-input-wrap">
+                <input type="number" id="start-year" placeholder="2026" min="2020" max="2035" class="input-year" value="2026" />
+                <span>년</span>
+                <input type="number" id="start-month" placeholder="03" min="1" max="12" class="input-date" />
+                <span>월</span>
+                <input type="number" id="start-day" placeholder="02" min="1" max="31" class="input-date" />
+                <span>일</span>
+              </div>
+              <span class="tilde">~</span>
+              <div class="date-input-wrap">
+                <input type="number" id="end-year" placeholder="2026" min="2020" max="2035" class="input-year" value="2026" />
+                <span>년</span>
+                <input type="number" id="end-month" placeholder="10" min="1" max="12" class="input-date" />
+                <span>월</span>
+                <input type="number" id="end-day" placeholder="14" min="1" max="31" class="input-date" />
+                <span>일</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. 화분 돌보기 활동 내용 -->
+      <section class="report-section">
+        <h2 class="section-title">
+          <span class="section-num">2</span>
+          화분 돌보기 활동 내용
+        </h2>
+
+        <div class="question-block">
+          <label class="question-label" for="q-environment">
+            <span class="q-bullet">🌱</span>
+            우리 반 화분이 잘 자랄 수 있도록 필요한 환경(햇빛, 물 주기 주기, 통풍 등)을 어떻게 만들어 주었나요?
+          </label>
+          <textarea
+            id="q-environment"
+            class="report-textarea"
+            rows="3"
+            placeholder="햇빛이 잘 드는 창가에 두고, 일주일에 몇 번 물을 주었는지, 환기는 어떻게 했는지 적어보세요."
+          ></textarea>
+          <div class="capture-text-mirror" data-for="q-environment"></div>
+        </div>
+
+        <div class="question-block">
+          <label class="question-label" for="q-role">
+            <span class="q-bullet">💧</span>
+            화분을 가꾸면서 내가 맡았던 역할이나 직접 실천한 일은 무엇인가요?
+          </label>
+          <textarea
+            id="q-role"
+            class="report-textarea"
+            rows="3"
+            placeholder="물 당번, 잎 닦아주기, 식물 관찰 일지 기록하기 등 내가 직접 실천한 일을 적어보세요."
+          ></textarea>
+          <div class="capture-text-mirror" data-for="q-role"></div>
+        </div>
+
+        <div class="question-block">
+          <label class="question-label">
+            <span class="q-bullet">🖼️</span>
+            우리 반 화분의 모습 <span class="sub-hint">(직접 그린 그림이나 촬영한 사진을 붙여주세요)</span>
+          </label>
+
+          <!-- 사진/그림 모드 전환 탭 (캡처 시 숨김) -->
+          <div class="media-tabs no-capture">
+            <button type="button" class="media-tab active" data-mode="photo">
+              📷 사진 불러오기 / 촬영
+            </button>
+            <button type="button" class="media-tab" data-mode="draw">
+              🎨 직접 그림 그리기
+            </button>
+          </div>
+
+          <div class="plant-showcase-box">
+            <!-- 모드 1: 사진 업로드 영역 -->
+            <div id="photo-mode-panel" class="media-panel active">
+              <input type="file" id="photo-input" accept="image/*" hidden />
+              <div id="photo-dropzone" class="photo-dropzone">
+                <div class="dropzone-placeholder" id="photo-placeholder">
+                  <div class="placeholder-icon">📸</div>
+                  <p class="placeholder-title">[ 그림 또는 사진 붙이는 곳 ]</p>
+                  <p class="placeholder-desc no-capture">
+                    클릭하거나 사진을 이곳에 끌어다 놓으세요<br />
+                    (스마트폰·태블릿에서는 바로 카메라 촬영도 가능해요)
+                  </p>
+                </div>
+                <img id="photo-preview" class="photo-preview hidden" alt="우리 반 화분 사진" />
+              </div>
+              <div id="photo-controls" class="photo-controls no-capture hidden">
+                <button type="button" id="btn-change-photo" class="btn btn-sm btn-outline">📷 다른 사진 선택</button>
+                <button type="button" id="btn-remove-photo" class="btn btn-sm btn-danger-outline">🗑️ 사진 지우기</button>
+              </div>
+            </div>
+
+            <!-- 모드 2: 직접 그림 그리기 영역 -->
+            <div id="draw-mode-panel" class="media-panel">
+              <div class="draw-toolbar no-capture">
+                <div class="color-palette" id="color-palette">
+                  <button type="button" class="color-swatch active" data-color="#2e7d32" style="background:#2e7d32" title="초록"></button>
+                  <button type="button" class="color-swatch" data-color="#66bb6a" style="background:#66bb6a" title="연두"></button>
+                  <button type="button" class="color-swatch" data-color="#8d6e63" style="background:#8d6e63" title="갈색(화분/흙)"></button>
+                  <button type="button" class="color-swatch" data-color="#ef5350" style="background:#ef5350" title="빨강(꽃/열매)"></button>
+                  <button type="button" class="color-swatch" data-color="#ffca28" style="background:#ffca28" title="노랑"></button>
+                  <button type="button" class="color-swatch" data-color="#42a5f5" style="background:#42a5f5" title="파랑(물)"></button>
+                  <button type="button" class="color-swatch" data-color="#333333" style="background:#333333" title="검정(테두리)"></button>
+                  <input type="color" id="custom-color-picker" value="#2e7d32" title="색상 직접 선택" />
+                </div>
+                <div class="brush-controls">
+                  <label for="brush-size">굵기</label>
+                  <input type="range" id="brush-size" min="2" max="28" value="6" />
+                  <button type="button" id="btn-eraser" class="btn btn-sm btn-outline">🧽 지우개</button>
+                  <button type="button" id="btn-undo-canvas" class="btn btn-sm btn-outline">↩️ 되돌리기</button>
+                  <button type="button" id="btn-clear-canvas" class="btn btn-sm btn-danger-outline">🗑️ 전체 지우기</button>
+                </div>
+              </div>
+              <div class="canvas-wrapper">
+                <canvas id="draw-canvas" width="760" height="380"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. 활동 소감 및 성찰 -->
+      <section class="report-section">
+        <h2 class="section-title">
+          <span class="section-num">3</span>
+          활동 소감 및 성찰
+        </h2>
+
+        <div class="question-block">
+          <label class="question-label" for="q-proud">
+            <span class="q-bullet">✨</span>
+            식물을 키우면서 가장 뿌듯했던 순간이나 기억에 남는 에피소드는 무엇인가요?
+          </label>
+          <textarea
+            id="q-proud"
+            class="report-textarea"
+            rows="3"
+            placeholder="새순이 돋아났을 때, 꽃이 피었을 때, 친구들과 함께 화분 이름을 지었을 때 등 기억에 남는 순간을 적어보세요."
+          ></textarea>
+          <div class="capture-text-mirror" data-for="q-proud"></div>
+        </div>
+
+        <div class="question-block">
+          <label class="question-label" for="q-difficulty">
+            <span class="q-bullet">🤝</span>
+            식물을 돌보면서 어려웠던 점(시들었을 때, 물 주기 조절 등)은 무엇이었으며, 반 친구들과 어떻게 해결했나요?
+          </label>
+          <textarea
+            id="q-difficulty"
+            class="report-textarea"
+            rows="3"
+            placeholder="방학이나 주말 동안 물 주기, 잎이 시들었을 때 대처 방법 등 친구들과 힘을 합쳐 해결한 과정을 적어보세요."
+          ></textarea>
+          <div class="capture-text-mirror" data-for="q-difficulty"></div>
+        </div>
+
+        <div class="question-block">
+          <label class="question-label" for="q-reflection">
+            <span class="q-bullet">💚</span>
+            이번 '1학급 1화분 키우기' 활동을 통해 생명의 소중함이나 학급 환경에 대해 새롭게 깨닫거나 느낀 점을 적어주세요.
+          </label>
+          <textarea
+            id="q-reflection"
+            class="report-textarea"
+            rows="4"
+            placeholder="식물을 돌보며 느낀 생명의 소중함, 우리 반 교실 분위기의 변화 등 나의 생각을 자유롭게 적어보세요."
+          ></textarea>
+          <div class="capture-text-mirror" data-for="q-reflection"></div>
+        </div>
+      </section>
+
+      <!-- 보고서 푸터 -->
+      <footer class="report-footer">
+        <div class="footer-stamp">
+          <span>🌿 1학급 1화분 키우기 활동 결과 보고서</span>
+          <span id="footer-date-stamp"></span>
+        </div>
+      </footer>
+    </article>
+
+    <!-- 하단 액션 버튼 영역 (캡처 시 제외) -->
+    <div class="bottom-action-bar no-capture">
+      <button type="button" id="btn-bottom-save" class="btn btn-secondary btn-lg">
+        📸 화면 이미지로 저장하기
+      </button>
+      <button type="button" id="btn-bottom-share" class="btn btn-accent btn-lg">
+        📤 이미지 저장 후 공유하기
+      </button>
+      <button type="button" id="btn-bottom-submit" class="btn btn-primary btn-lg">
+        ✅ 보고서 제출(완성)하기
+      </button>
+    </div>
+  </main>
+
+  <!-- 이미지 생성 완료 & 공유/제출 모달 -->
+  <div id="result-modal" class="modal-backdrop hidden no-capture" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modal-title">🎉 활동 결과 보고서 이미지가 완성되었어요!</h3>
+        <button type="button" id="btn-close-modal" class="modal-close" aria-label="닫기">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-desc" id="modal-desc">
+          아래 이미지를 저장하거나 공유 버튼을 눌러 선생님(학급 게시판, 패들렛, 클래스룸, 카카오톡 등)께 제출하세요.
+        </p>
+        <div class="preview-scroll-box">
+          <img id="generated-report-img" alt="완성된 보고서 이미지 미리보기" />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="btn-modal-download" class="btn btn-secondary">
+          💾 내 기기에 이미지 저장 (PNG)
+        </button>
+        <button type="button" id="btn-modal-copy" class="btn btn-outline">
+          📋 클립보드에 이미지 복사
+        </button>
+        <button type="button" id="btn-modal-share" class="btn btn-primary">
+          📤 바로 공유 / 제출하기
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 토스트 알림 -->
+  <div id="toast" class="toast hidden no-capture"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
